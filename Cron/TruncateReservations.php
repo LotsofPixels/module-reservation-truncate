@@ -4,6 +4,7 @@ namespace Lotsofpixels\ReservationTruncate\Cron;
 
 use Magento\Framework\App\ResourceConnection;
 use Psr\Log\LoggerInterface;
+use Lotsofpixels\ReservationTruncate\Model\Config;
 
 class TruncateReservations
 {
@@ -17,23 +18,34 @@ class TruncateReservations
      */
     private $logger;
 
+    /**
+     * @var Config
+     */
+    private $config;
+
     public function __construct(
         ResourceConnection $resource,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        Config $config
     ) {
         $this->resource = $resource;
         $this->logger = $logger;
+        $this->config = $config;
     }
 
     public function execute()
     {
+        if (!$this->config->isEnabled()) {
+            return;
+        }
+
         $connection = $this->resource->getConnection();
         $tableName = $this->resource->getTableName('inventory_reservation');
 
         try {
             if (!$connection->isTableExists($tableName)) {
                 $this->logger->info(sprintf(
-                    '[Vendor_ReservationTruncate] Table does not exist, skipping: %s',
+                    '[ReservationTruncate] Table does not exist, skipping: %s',
                     $tableName
                 ));
                 return;
@@ -42,12 +54,12 @@ class TruncateReservations
             $connection->truncateTable($tableName);
 
             $this->logger->info(sprintf(
-                '[Vendor_ReservationTruncate] Truncated table: %s',
+                '[ReservationTruncate] Truncated table: %s',
                 $tableName
             ));
         } catch (\Throwable $e) {
             $this->logger->error(
-                '[Vendor_ReservationTruncate] Failed to truncate inventory_reservation: ' . $e->getMessage(),
+                '[ReservationTruncate] Failed to truncate inventory_reservation: ' . $e->getMessage(),
                 ['exception' => $e]
             );
         }

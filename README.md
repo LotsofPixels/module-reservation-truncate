@@ -4,10 +4,10 @@ This module is used to truncate the inventory reservation table every day at 6 A
 
 ## Installation
 
-composer install lotsofpixels/module-reservation-truncate
+composer
 
 ```bash
-pip install foobar
+composer require lotsofpixels/module-reservation-truncate
 ```
 
 ## Contributing
