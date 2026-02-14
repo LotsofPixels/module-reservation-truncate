@@ -1,0 +1,22 @@
+{
+  "name": "lotsofpixels/module-reservation-truncate",
+  "description": "Magento 2 module: cron to clean up (conditionally delete) old records from inventory_reservation.",
+  "type": "magento2-module",
+  "license": [
+    "proprietary"
+  ],
+  "require": {
+    "php": ">=7.3",
+    "magento/framework": "*"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Lotsofpixels\\ReservationTruncate\\": ""
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
