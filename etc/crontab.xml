@@ -5,7 +5,7 @@
         <job name="vendor_inventory_reservation_truncate"
              instance="Lotsofpixels\ReservationTruncate\Cron\TruncateReservations"
              method="execute">
-            <schedule>*/5 * * * *</schedule>
+            <schedule>6 6 * * *</schedule>
         </job>
     </group>
 </config>

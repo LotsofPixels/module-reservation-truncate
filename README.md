@@ -1,6 +1,6 @@
 # Clean inventory reservation table with a cronjob
 
-This module is used to truncate the inventory reservation table every day.
+This module is used to truncate the inventory reservation table every day at 6 AM server time.
 
 ## Installation
 
